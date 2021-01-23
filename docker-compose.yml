@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:12
+    tty: true
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: config
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    hostname: localhost
+    ports:
+      - "5432:5432"
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    image: gitrends:latest
+    volumes:
+      - .:/code
+    ports: 
+      - "8000:8000"
+    depends_on: 
+      - db
+    env_file:
+      - .env
+volumes:
+  postgres_data:
