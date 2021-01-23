@@ -6,11 +6,10 @@
 </head>
 <body>
     <h2>Github Trends</h2>
-    <h3>{{ repos }}</h3>
-{#    <ul>#}
-{#        {% for repo in repos %}#}
-{#            <li><a href="#">{{ repo.repo_developer }}{{ repo.repo_name }}</a></li>#}
-{#        {% endfor %}#}
-{#    </ul>#}
+    <ul>
+        {% for repo in repos %}
+            <li><a href="/gitrends/{{ repo.id }}">{{ repo.repo_name }}</a></li>
+        {% endfor %}
+    </ul>
 </body>
 </html>

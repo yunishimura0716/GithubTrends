@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'gitrends',
 ]
 
 MIDDLEWARE = [
@@ -120,14 +121,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-# template dir
-SETTING_DIR = os.path.dirname(__file__)
-PROJECT_PATH = os.path.join(SETTING_DIR, os.pardir)
-PROJECT_ROOT = os.path.abspath(PROJECT_PATH)
-TEMPLATE_DIRS = (
-    os.path.join(PROJECT_ROOT, 'templates'),
-)
 
 
 # Static files (CSS, JavaScript, Images)
