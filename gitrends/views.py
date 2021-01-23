@@ -7,9 +7,13 @@ github_url = "https://github.com/trending"
 
 # Create your views here.
 def home(request):
-    # trending_repos = github_trending(github_url)
-    context = {'repos': 'Hello World'}
+    context = {'repos': trending_repos}
     return render(request, 'gitrends/home.html', context)
+
+def detail(request, repo_id):
+    repo = trending_repos[repo_id]
+    context = {'repo': repo}
+    return render(request, 'gitrends/detail.html', context)
 
 def github_trending(url):
     response = requests.get(url)
@@ -18,11 +22,33 @@ def github_trending(url):
     bs = BeautifulSoup(response.text, 'html.parser')
 
     results = []
-    repos = bs.select('h1.h3.lh-condensed')
+    repos = bs.select('article.Box-row')
     for i, repo in enumerate(repos):
-        a_tag = repo.find('a')
-        repo_name = a_tag.text
-        repo_developer = a_tag.find('span').text
-        results.append({'id': i, 'repo_name': repo_name, 'repo_developer': repo_developer})
+        repo_name = repo.find('h1').find('a').text
+        p_tag = repo.find('p')
+        repo_description = ""
+        if p_tag:
+            repo_description = p_tag.getText()
+
+        div_tag = repo.find('div', class_='f6 text-gray mt-2')
+        span_tag = div_tag.find('span').find('span', itemprop='programmingLanguage')
+        repo_lang = ""
+        if span_tag:
+            repo_lang = span_tag.contents[0]
+
+        a_tags = div_tag.find_all('a')
+        repo_stars = a_tags[0].text
+        repo_folks = a_tags[1].text
+
+        results.append({
+            'id': i,
+            'repo_name': repo_name,
+            'repo_description': repo_description,
+            'repo_lang': repo_lang,
+            'repo_stars': repo_stars,
+            'repo_folks': repo_folks
+        })
 
     return results
+
+trending_repos = github_trending(github_url)

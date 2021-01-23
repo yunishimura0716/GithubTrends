@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GitHub Trends Detail</title>
+</head>
+<body>
+    <h2>GitHub Trend {{ repo.repo_name }}</h2>
+    <h3>What is this project about?</h3>
+    <p>{{ repo.repo_description }}</p>
+    <br>
+    <h3>Programming Language</h3>
+    <p>{{ repo.repo_lang }}</p>
+    <div>
+        <h3>Trend Results</h3>
+        <p>Number of Stars: {{ repo.repo_stars }}</p>
+        <p>Number of Folks: {{ repo.repo_folks }}</p>
+    </div>
+</body>
+</html>
