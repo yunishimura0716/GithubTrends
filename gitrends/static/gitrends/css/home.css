@@ -1,0 +1,14 @@
+.showmore_repo {
+    overflow: hidden;
+    transition: all .3s ease-in;
+}
+
+.repo_toggle a.open_repo:before {
+    content: "show more";
+    display: inline;
+}
+
+.repo_toggle a.close_repo:before {
+    content: "show less";
+    display: inline;
+}
