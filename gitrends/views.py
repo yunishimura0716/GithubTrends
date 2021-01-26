@@ -24,6 +24,8 @@ def github_trending(url):
     results = []
     repos = bs.select('article.Box-row')
     for i, repo in enumerate(repos):
+        a_tag = repo.find('h1', class_='lh-condensed').find('a')
+        repo_url = a_tag.get('href')
         repo_name = repo.find('h1').find('a').text
         p_tag = repo.find('p')
         repo_description = ""
@@ -46,7 +48,8 @@ def github_trending(url):
             'repo_description': repo_description,
             'repo_lang': repo_lang,
             'repo_stars': repo_stars,
-            'repo_folks': repo_folks
+            'repo_folks': repo_folks,
+            'repo_url': repo_url
         })
 
     return results
